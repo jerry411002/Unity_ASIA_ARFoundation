@@ -1,6 +1,7 @@
 ﻿
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;//引用ARFOUNDATION API
+using UnityEngine.XR.ARSubsystems;//引用ARFOUNDATION API
 using System.Collections.Generic;//引用 系統.集合.一般 包含清單 List
 
 /// <summary>
@@ -34,6 +35,13 @@ public class ARmanger : MonoBehaviour
             print(pointMouse);
         }
         //判斷射線是否打到物件
+        if (arManger.Raycast(pointMouse, hits, TrackableType.PlaneWithinPolygon))
+        {
+            // 生成物件(物件，座標，角度)
+            // hits[0].pose.position 點擊到地面的第一個位置
+            // Quaternion.identity 零角度
+            Instantiate(obj, hits[0].pose.position, Quaternion.identity);
+        }
         //生成物件
     }
 
